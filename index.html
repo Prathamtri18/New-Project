@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MobileHub - Phone Store</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f6fa;
+            color: #222;
+        }
+
+        /* Navbar */
+        nav {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            color: #38bdf8;
+        }
+
+        .cart {
+            background: #38bdf8;
+            color: #111827;
+            padding: 9px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            padding: 70px 7%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 19px;
+            margin-bottom: 25px;
+            color: #dbeafe;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 13px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Search */
+        .search-section {
+            padding: 30px 7%;
+            text-align: center;
+        }
+
+        .search-section input {
+            width: 60%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* Products */
+        .products {
+            padding: 20px 7% 60px;
+        }
+
+        .products h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 35px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .phone-image {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .phone-image img {
+            max-width: 100%;
+            max-height: 210px;
+            object-fit: contain;
+        }
+
+        .product-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .rating {
+            color: #f59e0b;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .old-price {
+            color: #888;
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+
+        .discount {
+            color: #16a34a;
+            font-size: 14px;
+            margin: 8px 0 15px;
+        }
+
+        .buy-btn {
+            width: 100%;
+            border: none;
+            background: #111827;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .buy-btn:hover {
+            background: #38bdf8;
+            color: #111827;
+        }
+
+        /* Features */
+        .features {
+            background: white;
+            padding: 45px 7%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            gap: 30px;
+        }
+
+        .feature {
+            padding: 15px;
+        }
+
+        .feature h3 {
+            margin: 10px 0;
+        }
+
+        .feature p {
+            color: #666;
+        }
+
+        .feature-icon {
+            font-size: 35px;
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: white;
+            padding: 35px 7%;
+            text-align: center;
+        }
+
+        footer p {
+            color: #cbd5e1;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .search-section input {
+                width: 90%;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">Mobile<span>Hub</span></div>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#phones">Phones</a></li>
+            <li><a href="#deals">Deals</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="cart">
+            🛒 Cart: <span id="cartCount">0</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Find Your Perfect Phone</h1>
+        <p>Latest smartphones at the best prices in India.</p>
+        <a href="#phones" class="shop-btn">Shop Now</a>
+    </section>
+
+    <!-- Search -->
+    <section class="search-section">
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search for a phone..."
+            onkeyup="searchPhones()"
+        >
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="phones">
+        <h2>Featured Smartphones</h2>
+
+        <div class="product-grid" id="productGrid">
+
+            <!-- iPhone -->
+            <div class="product-card">
+                <div class="phone-image">
+                    <img src="https://images.unsplash.com/photo-1592286927505-2fd6b2e0e8e2?auto=format&fit=crop&w=500&q=80"
+                         alt="iPhone">
+                </div>
+
+                <h3>iPhone 17 Pro</h3>
+                <div class="rating">★★★★★</div>
+
+                <div class="price">₹1,29,999</div>
+                <div class="old-price">₹1,39,999</div>
+                <div class="discount">7% OFF</div>
+
+                <button class="buy-btn" onclick="addToCart()">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- Samsung -->
+            <div class="product-card">
+                <div class="phone-image">
+                    <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=500&q=80"
+                         alt="Samsung Phone">
+                </div>
+
+                <h3>Samsung Galaxy S25</h3>
+                <div class="rating">★★★★☆</div>
+
+                <div class="price">₹79,999</div>
+                <div class="old-price">₹89,999</div>
+                <div class="discount">11% OFF</div>
+
+                <button class="buy-btn" onclick="addToCart()">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- OnePlus -->
+            <div class="product-card">
+                <div class="phone-image">
+                    <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?auto=format&fit=crop&w=500&q=80"
+                         alt="OnePlus Phone">
+                </div>
+
+                <h3>OnePlus 13</h3>
+                <div class="rating">★★★★★</div>
+
+                <div class="price">₹69,999</div>
+                <div class="old-price">₹74,999</div>
+                <div class="discount">6% OFF</div>
+
+                <button class="buy-btn" onclick="addToCart()">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- Google Pixel -->
+            <div class="product-card">
+                <div class="phone-image">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=500&q=80"
+                         alt="Google Pixel">
+                </div>
+
+                <h3>Google Pixel 10</h3>
+                <div class="rating">★★★★☆</div>
+
+                <div class="price">₹74,999</div>
+                <div class="old-price">₹82,999</div>
+                <div class="discount">10% OFF</div>
+
+                <button class="buy-btn" onclick="addToCart()">
+                    Add to Cart
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+
+        <div class="feature">
+            <div class="feature-icon">🚚</div>
+            <h3>Fast Delivery</h3>
+            <p>Quick delivery across India.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure Payment</h3>
+            <p>100% secure and reliable payments.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">↩️</div>
+            <h3>Easy Returns</h3>
+            <p>Simple and hassle-free returns.</p>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <h2>MobileHub</h2>
+        <p>Your trusted online smartphone store.</p>
+        <p>© 2026 MobileHub. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+
+        let cartCount = 0;
+
+        function addToCart() {
+            cartCount++;
+
+            document.getElementById("cartCount").innerText = cartCount;
+
+            alert("Phone added to cart!");
+        }
+
+        function searchPhones() {
+
+            let search =
+                document.getElementById("searchBox")
+                .value
+                .toLowerCase();
+
+            let products =
+                document.querySelectorAll(".product-card");
+
+            products.forEach(function(product) {
+
+                let productName =
+                    product.querySelector("h3")
+                    .innerText
+                    .toLowerCase();
+
+                if (productName.includes(search)) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
+
+            });
+        }
+
+    </script>
+
+</body>
+</html>
